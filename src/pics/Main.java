@@ -41,13 +41,32 @@ public class Main {
      *
      */
     private static void computeAlgo(Pictures pictures) {
+        List<Slide> slides = new ArrayList<>();
+
         List<Pic> horizontals = pictures.horizontal;
+        for (Pic horizontal: horizontals) {
+            Slide slide = new Slide(horizontal.getType(), horizontal.getTags(), horizontal);
+            slides.add(slide);
+        }
+
         List<Pic> verticals = pictures.vertical;
+
+
+        List<Slide> verticalSlides = createVerticalPics(verticals);
+        slides.addAll(verticalSlides);
 
         int[][] multi = new int[5][10];
 
     }
 
+    private static List<Slide> createVerticalPics(List<Pic> verticals) {
+        for (Pic vertical: verticals) {
+            for (Pic vertical : verticals) {
+                Slide slide = new Slide(horizontal.getType(), horizontal.getTags(), horizontal);
+                slides.add(slide);
+            }
+        }
+    }
 
 
     /**
