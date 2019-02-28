@@ -20,8 +20,12 @@ public class Pic {
         return type;
     }
 
-    public List<Integer> getTags() {
+    public int[] getTags() {
         return tags;
+    }
+
+    public int getNoTags() {
+        return tags.size();
     }
 
     public void setType(Type type) {
