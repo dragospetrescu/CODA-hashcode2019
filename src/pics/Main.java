@@ -60,7 +60,7 @@ public class Main {
         MyScanner scanner = new MyScanner(new File(filename));
         TagStringToId converter = new TagStringToId();
 
-        List<Pic> pictures = new ArrayList<>();
+        Pictures pictures = new Pictures();
 
         Util.PHOTOS_NO = scanner.nextInt();
 
@@ -75,10 +75,15 @@ public class Main {
 
             Arrays.sort(tags);
             Pic pic = new Pic(Type.valueOf(type), tags);
-            pictures.add(pic);
+
+            if (Type.H.equals(pic.getType())) {
+                pictures.horizontal.add(pic);
+            } else {
+                pictures.vertical.add(pic);
+            }
         }
 
-        return new Pictures();
+        return pictures;
     }
 
 
