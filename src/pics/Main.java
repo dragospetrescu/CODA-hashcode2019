@@ -24,8 +24,8 @@ public class Main {
         for (String file : Util.INPUT_FILES) {
             System.out.println("Computing " + file);
 
-            read(Util.INPUT_FOLDER + file);
-            computeAlgo();
+            Pictures pictures = read(Util.INPUT_FOLDER + file);
+            computeAlgo(pictures);
             writeResults(Util.OUTPUT_FOLDER + Util.OUTPUT_FILES[outIdx++]);
         }
 
@@ -40,7 +40,11 @@ public class Main {
      *
      *
      */
-    private static void computeAlgo() {
+    private static void computeAlgo(Pictures pictures) {
+        List<Pic> horizontals = pictures.horizontal;
+        List<Pic> verticals = pictures.vertical;
+
+        int[][] multi = new int[5][10];
 
     }
 
@@ -56,7 +60,7 @@ public class Main {
         MyScanner scanner = new MyScanner(new File(filename));
         TagStringToId converter = new TagStringToId();
 
-        List<Pic> pictures = new ArrayList<>();
+        Pictures pictures = new Pictures();
 
         Util.PHOTOS_NO = scanner.nextInt();
 
@@ -71,10 +75,15 @@ public class Main {
 
             Arrays.sort(tags);
             Pic pic = new Pic(Type.valueOf(type), tags);
-            pictures.add(pic);
+
+            if (Type.H.equals(pic.getType())) {
+                pictures.horizontal.add(pic);
+            } else {
+                pictures.vertical.add(pic);
+            }
         }
 
-        return new Pictures();
+        return pictures;
     }
 
 
