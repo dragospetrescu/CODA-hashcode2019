@@ -89,8 +89,8 @@ public class Main {
         return edges;
     }
 
-    private static void kruskal(List<Edge> allEdges, List<Pic> vertices) {
-        PriorityQueue<Edge> pq = new PriorityQueue<>(allEdges.size(), Comparator.comparingInt(o -> o.weight));
+    private static ArrayList<Edge> kruskal(List<Edge> allEdges, List<Pic> vertices) {
+        PriorityQueue<Edge> pq = new PriorityQueue<>(allEdges.size(), Comparator.comparingInt(Edge::getScore).reversed());
 
         pq.addAll(allEdges);
 
@@ -109,8 +109,8 @@ public class Main {
             Edge edge = pq.remove();
 
             //check if adding this edge creates a cycle
-            int x_set = find(parent, edge.source);
-            int y_set = find(parent, edge.destination);
+            int x_set = find(parent, edge.getSource().id);
+            int y_set = find(parent, edge.getDest().id);
 
             if (x_set == y_set) {
                 //ignore, will create cycle
@@ -122,7 +122,7 @@ public class Main {
             }
         }
 
-
+        return mst;
     }
 
     public static void makeSet(int[] parent, int size){
