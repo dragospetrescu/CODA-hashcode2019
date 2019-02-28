@@ -25,7 +25,7 @@ public class Pic {
     }
 
     public int getNoTags() {
-        return tags.size();
+        return tags.length;
     }
 
     public void setType(Type type) {
