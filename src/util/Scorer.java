@@ -2,6 +2,9 @@ package util;
 
 import pics.Pic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Scorer {
 
     public static int getScore(Pic pic1, Pic pic2) {
@@ -12,7 +15,12 @@ public class Scorer {
         int[] tags1 = pic1.getTags();
         int[] tags2 = pic2.getTags();
 
-        // TODO: MAKE THE SMALLER LIST SECOND
+        if(tags1.length < tags2.length){
+            int[] aux = Arrays.copyOf(tags1, tags1.length);
+            tags1 = Arrays.copyOf(tags2, tags2.length);
+            tags2 = Arrays.copyOf(aux, aux.length);
+        }
+
         for (int tag1: tags1) {
             for (int tag2: tags2) {
                 if(tag2 == tag1) {
