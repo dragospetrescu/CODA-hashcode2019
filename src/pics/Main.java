@@ -51,21 +51,24 @@ public class Main {
 
         List<Pic> verticals = pictures.vertical;
 
+        createVerticalPics(verticals, slides);
 
-        List<Slide> verticalSlides = createVerticalPics(verticals);
-        slides.addAll(verticalSlides);
-
-        int[][] multi = new int[5][10];
 
     }
 
-    private static List<Slide> createVerticalPics(List<Pic> verticals) {
-        for (Pic vertical: verticals) {
-            for (Pic vertical : verticals) {
-                Slide slide = new Slide(horizontal.getType(), horizontal.getTags(), horizontal);
+    private static void createVerticalPics(List<Pic> verticals, List<Slide> slides) {
+
+        for (int i = 0; i < verticals.size(); i++) {
+            Pic vertical1 = verticals.get(i);
+            for (int j = 0; j < i + 1; j++) {
+                Pic vertical2 = verticals.get(j);
+                int[] tags = Util.combineTags(vertical1.getTags(), vertical2.getTags());
+                Slide slide = new Slide(Type.V, tags, vertical1, vertical2);
                 slides.add(slide);
+
             }
         }
+
     }
 
 
