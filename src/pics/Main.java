@@ -1,12 +1,17 @@
 package pics;
 
 import util.MyScanner;
+import util.Type;
 import util.Util;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Main {
@@ -47,11 +52,29 @@ public class Main {
      *
      * @param filename file to read from
      */
-    private static void read(String filename) {
+    private static List<Pic> read(String filename) {
         MyScanner scanner = new MyScanner(new File(filename));
+        TagStringToId converter = new TagStringToId();
 
-        Util.WIDTH = scanner.nextInt();
-        Util.HEIGHT = scanner.nextInt();
+        List<Pic> pictures = new ArrayList<>();
+
+        Util.PHOTOS_NO = scanner.nextInt();
+
+        for (int i = 0; i < Util.PHOTOS_NO; i++) {
+            String type = scanner.next();
+            int tagsNo = scanner.nextInt();
+            int[] tags = new int[tagsNo];
+
+            for (int j = 0; j < tagsNo; j++) {
+                tags[j] = converter.getIdOfTag(scanner.next());
+            }
+
+            Arrays.sort(tags);
+            Pic pic = new Pic(Type.valueOf(type), tags);
+            pictures.add(pic);
+        }
+
+        return pictures;
     }
 
 

@@ -7,11 +7,11 @@ import java.util.List;
 public class Pic {
 
     private Type type;
-    private List<Integer> tags;
+    private int[] tags;
 
     public Pic() {}
 
-    public Pic(Type type, List<Integer> tags) {
+    public Pic(Type type, int[] tags) {
         this.type = type;
         this.tags = tags;
     }
@@ -20,15 +20,19 @@ public class Pic {
         return type;
     }
 
-    public List<Integer> getTags() {
+    public int[] getTags() {
         return tags;
+    }
+
+    public int getNoTags() {
+        return tags.size();
     }
 
     public void setType(Type type) {
         this.type = type;
     }
 
-    public void setTags(List<Integer> tags) {
+    public void setTags(int[] tags) {
         this.tags = tags;
     }
 }
