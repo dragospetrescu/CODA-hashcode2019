@@ -4,7 +4,6 @@ public class Util {
 
     public static int PHOTOS_NO;
 
-
     public static final String INPUT_FOLDER = "input\\";
 
     public static final String OUTPUT_FOLDER = "output\\";

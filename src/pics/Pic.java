@@ -8,12 +8,14 @@ public class Pic {
 
     private Type type;
     private int[] tags;
+    private int id;
 
     public Pic() {}
 
-    public Pic(Type type, int[] tags) {
+    public Pic(Type type, int[] tags, int id) {
         this.type = type;
         this.tags = tags;
+        this.id = id;
     }
 
     public Type getType() {
@@ -34,5 +36,13 @@ public class Pic {
 
     public void setTags(int[] tags) {
         this.tags = tags;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
