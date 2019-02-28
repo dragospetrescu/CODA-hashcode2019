@@ -1,3 +1,5 @@
+package pics;
+
 import util.MyScanner;
 import util.Util;
 
