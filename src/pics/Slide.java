@@ -1,9 +1,11 @@
 package pics;
 
 import util.Type;
+import util.Util;
 
 public class Slide {
 
+    int id;
     Type type;
     int[] tags;
     Pic pic1;
@@ -18,11 +20,13 @@ public class Slide {
         this.tags = tags;
         this.pic1 = pic1;
         this.pic2 = pic2;
+        id = Util.crtSlideId++;
     }
 
     public Slide(Type type, int[] tags, Pic pic1) {
         this.type = type;
         this.tags = tags;
         this.pic1 = pic1;
+        id = Util.crtSlideId++;
     }
 }

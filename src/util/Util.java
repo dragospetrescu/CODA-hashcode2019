@@ -1,6 +1,5 @@
 package util;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,6 +8,7 @@ public class Util {
     public static int PHOTOS_NO;
 
     public static final String INPUT_FOLDER = "input/";
+    public static int crtSlideId = 0;
 
     public static final String OUTPUT_FOLDER = "output/";
 
