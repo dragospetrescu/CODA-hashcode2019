@@ -46,7 +46,7 @@ public class MyScanner {
         return Double.parseDouble(next());
     }
 
-    public String nextLine(){
+    public String nextLine() {
         String str = "";
         try {
             str = br.readLine();
