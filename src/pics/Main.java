@@ -24,8 +24,8 @@ public class Main {
         for (String file : Util.INPUT_FILES) {
             System.out.println("Computing " + file);
 
-            read(Util.INPUT_FOLDER + file);
-            computeAlgo();
+            Pictures pictures = read(Util.INPUT_FOLDER + file);
+            computeAlgo(pictures);
             writeResults(Util.OUTPUT_FOLDER + Util.OUTPUT_FILES[outIdx++]);
         }
 
@@ -40,7 +40,11 @@ public class Main {
      *
      *
      */
-    private static void computeAlgo() {
+    private static void computeAlgo(Pictures pictures) {
+        List<Pic> horizontals = pictures.horizontal;
+        List<Pic> verticals = pictures.vertical;
+
+        int[][] multi = new int[5][10];
 
     }
 
