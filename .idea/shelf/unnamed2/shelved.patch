@@ -1,0 +1,166 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 400718831fe74b1d5a9da1301477d9e2030fd5c6)
++++ .idea/misc.xml	(date 1551378915000)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8.0_201" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/pics/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pics;\n\nimport util.MyScanner;\nimport util.Util;\n\nimport java.io.BufferedWriter;\nimport java.io.File;\nimport java.io.FileWriter;\nimport java.io.IOException;\n\n\npublic class Main {\n\n\n    public static void main(String[] args) {\n\n        int outIdx = 0;\n\n        for (String file : Util.INPUT_FILES) {\n            System.out.println(\"Computing \" + file);\n\n            read(Util.INPUT_FOLDER + file);\n            computeAlgo();\n            writeResults(Util.OUTPUT_FOLDER + Util.OUTPUT_FILES[outIdx++]);\n        }\n\n        System.out.println(\"Results are ready!\");\n\n\n    }\n\n\n    /**\n     * Compute some algorithm to solve the problem.\n     *\n     *\n     */\n    private static void computeAlgo() {\n\n    }\n\n\n\n    /**\n     * Read input data from file.\n     *\n     *\n     * @param filename file to read from\n     */\n    private static void read(String filename) {\n        MyScanner scanner = new MyScanner(new File(filename));\n\n        Util.WIDTH = scanner.nextInt();\n        Util.HEIGHT = scanner.nextInt();\n    }\n\n\n    /**\n     * Write results to file.\n     *\n     *\n     * @param outFile file to write to\n     */\n    private static void writeResults(String outFile) {\n\n        BufferedWriter bw = null;\n        FileWriter fw = null;\n\n        try {\n\n            fw = new FileWriter(new File(outFile));\n            bw = new BufferedWriter(fw);\n\n            StringBuilder content = new StringBuilder();\n\n            // compute content\n\n            bw.write(content.toString());\n\n\n        } catch (IOException e) {\n            e.printStackTrace();\n        } finally {\n            try {\n                if (bw != null)\n                    bw.close();\n\n                if (fw != null)\n                    fw.close();\n\n            } catch (IOException ex) {\n                ex.printStackTrace();\n            }\n        }\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/pics/Main.java	(revision 400718831fe74b1d5a9da1301477d9e2030fd5c6)
++++ src/pics/Main.java	(date 1551379513000)
+@@ -1,12 +1,17 @@
+ package pics;
+ 
+ import util.MyScanner;
++import util.Type;
+ import util.Util;
+ 
+ import java.io.BufferedWriter;
+ import java.io.File;
+ import java.io.FileWriter;
+ import java.io.IOException;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.List;
+ 
+ 
+ public class Main {
+@@ -47,11 +52,29 @@
+      *
+      * @param filename file to read from
+      */
+-    private static void read(String filename) {
++    private static List<Pic> read(String filename) {
+         MyScanner scanner = new MyScanner(new File(filename));
++        TagStringToId converter = new TagStringToId();
++
++        List<Pic> pictures = new ArrayList<>();
+ 
+-        Util.WIDTH = scanner.nextInt();
+-        Util.HEIGHT = scanner.nextInt();
++        Util.PHOTOS_NO = scanner.nextInt();
++
++        for (int i = 0; i < Util.PHOTOS_NO; i++) {
++            String type = scanner.next();
++            int tagsNo = scanner.nextInt();
++            int[] tags = new int[tagsNo];
++
++            for (int j = 0; j < tagsNo; j++) {
++                tags[j] = converter.getIdOfTag(scanner.next());
++            }
++
++            Arrays.sort(tags);
++            Pic pic = new Pic(Type.valueOf(type), tags);
++            pictures.add(pic);
++        }
++
++        return pictures;
+     }
+ 
+ 
+Index: src/util/Type.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package util;\n\npublic enum Type {\n\n    H,\n    V\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/util/Type.java	(revision 400718831fe74b1d5a9da1301477d9e2030fd5c6)
++++ src/util/Type.java	(date 1551379279000)
+@@ -2,7 +2,16 @@
+ 
+ public enum Type {
+ 
+-    H,
+-    V
++    H("H"),
++    V("V");
++
++    private String description;
+ 
++    Type(String description) {
++        this.description = description;
++    }
++
++    public String getDescription() {
++        return description;
++    }
+ }
+Index: src/pics/Pic.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pics;\n\nimport util.Type;\n\nimport java.util.List;\n\npublic class Pic {\n\n    private Type type;\n    private List<Integer> tags;\n\n    public Pic() {}\n\n    public Pic(Type type, List<Integer> tags) {\n        this.type = type;\n        this.tags = tags;\n    }\n\n    public Type getType() {\n        return type;\n    }\n\n    public List<Integer> getTags() {\n        return tags;\n    }\n\n    public void setType(Type type) {\n        this.type = type;\n    }\n\n    public void setTags(List<Integer> tags) {\n        this.tags = tags;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/pics/Pic.java	(revision 400718831fe74b1d5a9da1301477d9e2030fd5c6)
++++ src/pics/Pic.java	(date 1551379430000)
+@@ -7,11 +7,11 @@
+ public class Pic {
+ 
+     private Type type;
+-    private List<Integer> tags;
++    private int[] tags;
+ 
+     public Pic() {}
+ 
+-    public Pic(Type type, List<Integer> tags) {
++    public Pic(Type type, int[] tags) {
+         this.type = type;
+         this.tags = tags;
+     }
+@@ -20,7 +20,7 @@
+         return type;
+     }
+ 
+-    public List<Integer> getTags() {
++    public int[] getTags() {
+         return tags;
+     }
+ 
+@@ -28,7 +28,7 @@
+         this.type = type;
+     }
+ 
+-    public void setTags(List<Integer> tags) {
++    public void setTags(int[] tags) {
+         this.tags = tags;
+     }
+ }
+Index: src/util/Util.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package util;\n\npublic class Util {\n\n    public static int WIDTH;\n    public static int HEIGHT;\n\n\n    public static final String INPUT_FOLDER = \"input\\\\\";\n\n    public static final String OUTPUT_FOLDER = \"output\\\\\";\n\n    public static final String[] OUTPUT_FILES = {\n            \"a.out\",\n            \"b.out\",\n            \"c.out\",\n            \"d.out\",\n            \"e.out\"\n    };\n\n    public static final String[] INPUT_FILES = {\n            \"a_example.in\",\n            \"b_should_be_easy.in\",\n            \"c_no_hurry.in\",\n            \"d_metropolis.in\",\n            \"e_high_bonus.in\"\n    };\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/util/Util.java	(revision 400718831fe74b1d5a9da1301477d9e2030fd5c6)
++++ src/util/Util.java	(date 1551378975000)
+@@ -2,8 +2,7 @@
+ 
+ public class Util {
+ 
+-    public static int WIDTH;
+-    public static int HEIGHT;
++    public static int PHOTOS_NO;
+ 
+ 
+     public static final String INPUT_FOLDER = "input\\";
