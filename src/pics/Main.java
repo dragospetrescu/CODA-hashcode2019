@@ -70,7 +70,7 @@ public class Main {
             }
 
             Arrays.sort(tags);
-            Pic pic = new Pic(Type.valueOf(type), tags);
+            Pic pic = new Pic(Type.valueOf(type), tags, i);
 
             if (Type.H.equals(pic.getType())) {
                 pictures.horizontal.add(pic);
