@@ -9,6 +9,10 @@ public class Slide {
     Pic pic1;
     Pic pic2;
 
+    public int[] getTags() {
+        return tags;
+    }
+
     public Slide(Type type, int[] tags, Pic pic1, Pic pic2) {
         this.type = type;
         this.tags = tags;

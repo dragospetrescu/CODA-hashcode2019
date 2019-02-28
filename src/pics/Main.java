@@ -1,6 +1,7 @@
 package pics;
 
 import util.MyScanner;
+import util.Scorer;
 import util.Type;
 import util.Util;
 
@@ -66,6 +67,16 @@ public class Main {
                 slides.add(slide);
             }
         }
+    }
+
+    private static List<Edge> edgeScoring(List<Slide> slides){
+        List<Edge> edges = new ArrayList<>();
+        for(int i = 0; i < slides.size() - 1; i++){
+            for(int j = i + 1; j < slides.size();j++){
+                edges.add(new Edge(slides.get(i), slides.get(j), Scorer.getScore(slides.get(i), slides.get(j))));
+            }
+        }
+        return edges;
     }
 
 
