@@ -52,7 +52,7 @@ public class Main {
      *
      * @param filename file to read from
      */
-    private static List<Pic> read(String filename) {
+    private static Pictures read(String filename) {
         MyScanner scanner = new MyScanner(new File(filename));
         TagStringToId converter = new TagStringToId();
 
@@ -74,7 +74,7 @@ public class Main {
             pictures.add(pic);
         }
 
-        return pictures;
+        return new Pictures();
     }
 
 
