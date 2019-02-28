@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 
 public class Main {
@@ -68,6 +70,63 @@ public class Main {
         }
     }
 
+    private static void kruskal(List<Edge> allEdges, List<Pic> vertices) {
+        PriorityQueue<Edge> pq = new PriorityQueue<>(allEdges.size(), Comparator.comparingInt(o -> o.weight));
+
+        pq.addAll(allEdges);
+
+        //create a parent []
+        int[] parent = new int[vertices.size()];
+
+        //makeset
+        makeSet(parent, vertices.size());
+
+        ArrayList<Edge> mst = new ArrayList<>();
+
+        //process vertices - 1 edges
+        int index = 0;
+
+        while (index < vertices.size() - 1) {
+            Edge edge = pq.remove();
+
+            //check if adding this edge creates a cycle
+            int x_set = find(parent, edge.source);
+            int y_set = find(parent, edge.destination);
+
+            if (x_set == y_set) {
+                //ignore, will create cycle
+            } else {
+                //add it to our final result
+                mst.add(edge);
+                index++;
+                union(parent, x_set, y_set);
+            }
+        }
+
+
+    }
+
+    public static void makeSet(int[] parent, int size){
+        //Make set - creating a new element with a parent pointer to itself.
+        for (int i = 0; i < size; i++) {
+            parent[i] = i;
+        }
+    }
+
+    public static int find(int[] parent, int vertex){
+        //chain of parent pointers from x upwards through the tree
+        // until an element is reached whose parent is itself
+        if(parent[vertex] != vertex)
+            return find(parent, parent[vertex]);
+        return vertex;
+    }
+
+    public static void union(int[] parent, int x, int y){
+        int x_set_parent = find(parent, x);
+        int y_set_parent = find(parent, y);
+        //make x as parent of y
+        parent[y_set_parent] = x_set_parent;
+    }
 
     /**
      * Read input data from file.
