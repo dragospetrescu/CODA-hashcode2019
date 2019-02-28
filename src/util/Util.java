@@ -2,8 +2,7 @@ package util;
 
 public class Util {
 
-    public static int WIDTH;
-    public static int HEIGHT;
+    public static int PHOTOS_NO;
 
 
     public static final String INPUT_FOLDER = "input\\";

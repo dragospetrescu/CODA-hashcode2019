@@ -1,3 +1,5 @@
+package pics;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,11 @@ public class TagStringToId {
     }
 
     public Integer getIdOfTag(String tag) {
-        return null;
+        if(!tagToStringMap.containsKey(tag)) {
+            tagToStringMap.put(tag, id);
+            id = id + 1;
+        }
+        return tagToStringMap.get(tag);
     }
 
 }
