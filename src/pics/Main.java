@@ -56,6 +56,11 @@ public class Main {
 
         createVerticalPics(verticals, slides);
 
+        for (Slide slide: slides) {
+            System.out.println(slide.);
+
+        }
+
 
     }
 
