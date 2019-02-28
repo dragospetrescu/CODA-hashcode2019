@@ -1,8 +1,13 @@
 package util;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Util {
 
     public static int PHOTOS_NO;
+
+    public static int crtSlideId = 0;
 
     public static final String INPUT_FOLDER = "input\\";
 
@@ -23,6 +28,27 @@ public class Util {
             "d_metropolis.in",
             "e_high_bonus.in"
     };
+
+
+    public static int[] combineTags(int[] tags1, int[] tags2) {
+        Set<Integer> set = new TreeSet<>();
+
+
+        for (int tag:tags1) {
+            set.add(tag);
+        }
+        for (int tag:tags2) {
+            set.add(tag);
+        }
+        int[] array = new int[set.size()];
+        int i =0;
+        for (Integer val : set) {
+            array[i] = val;
+            i++;
+        }
+
+        return array;
+    }
 
 
 }

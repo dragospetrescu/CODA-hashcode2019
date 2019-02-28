@@ -1,13 +1,14 @@
 package util;
 
 import pics.Pic;
+import pics.Slide;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Scorer {
 
-    public static int getScore(Pic pic1, Pic pic2) {
+    public static int getScore(Slide pic1, Slide pic2) {
         int common = 0;
         int uniq1 = 0;
         int uniq2 = 0;

@@ -1,6 +1,7 @@
 package pics;
 
 import util.MyScanner;
+import util.Scorer;
 import util.Type;
 import util.Util;
 
@@ -53,21 +54,34 @@ public class Main {
 
         List<Pic> verticals = pictures.vertical;
 
+        createVerticalPics(verticals, slides);
 
-        List<Slide> verticalSlides = createVerticalPics(verticals);
-        slides.addAll(verticalSlides);
-
-        int[][] multi = new int[5][10];
 
     }
 
-    private static List<Slide> createVerticalPics(List<Pic> verticals) {
-        for (Pic vertical: verticals) {
-            for (Pic vertical : verticals) {
-                Slide slide = new Slide(horizontal.getType(), horizontal.getTags(), horizontal);
+    private static void createVerticalPics(List<Pic> verticals, List<Slide> slides) {
+
+        for (int i = 0; i < verticals.size(); i++) {
+            Pic vertical1 = verticals.get(i);
+            for (int j = 0; j < i + 1; j++) {
+                Pic vertical2 = verticals.get(j);
+                int[] tags = Util.combineTags(vertical1.getTags(), vertical2.getTags());
+                Slide slide = new Slide(Type.V, tags, vertical1, vertical2);
                 slides.add(slide);
+
             }
         }
+
+    }
+
+    private static List<Edge> edgeScoring(List<Slide> slides){
+        List<Edge> edges = new ArrayList<>();
+        for(int i = 0; i < slides.size() - 1; i++){
+            for(int j = i + 1; j < slides.size();j++){
+                edges.add(new Edge(slides.get(i), slides.get(j), Scorer.getScore(slides.get(i), slides.get(j))));
+            }
+        }
+        return edges;
     }
 
     private static void kruskal(List<Edge> allEdges, List<Pic> vertices) {
