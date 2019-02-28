@@ -34,9 +34,8 @@ public class Slide {
 
     @Override
     public String toString() {
-        return "Slide{" +
-                "id=" + id +
-                ", tags=" + Arrays.toString(tags) +
-                '}';
+        if(type == Type.V)
+            return pic1.getId() + " " + pic2.getId();
+        return "" + pic1.getId();
     }
 }

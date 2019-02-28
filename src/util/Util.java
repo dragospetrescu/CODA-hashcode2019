@@ -13,7 +13,7 @@ public class Util {
     public static final String OUTPUT_FOLDER = "output/";
 
     public static final String[] OUTPUT_FILES = {
-            "a.out",
+//            "a.out",
             "b.out",
             "c.out",
             "d.out",
@@ -21,7 +21,8 @@ public class Util {
     };
 
     public static final String[] INPUT_FILES = {
-            "a_example.txt"
+//            "a_example.txt",
+            "b_lovely_landscapes.txt"
     };
 
 

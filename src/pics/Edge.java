@@ -37,4 +37,12 @@ public class Edge {
         this.score = score;
     }
 
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "source=" + source +
+                ", dest=" + dest +
+                ", score=" + score +
+                '}';
+    }
 }

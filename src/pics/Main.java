@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -28,8 +29,8 @@ public class Main {
             System.out.println("Computing " + file);
 
             Pictures pictures = read(Util.INPUT_FOLDER + file);
-            computeAlgo(pictures);
-            writeResults(Util.OUTPUT_FOLDER + Util.OUTPUT_FILES[outIdx++]);
+            List<Slide> resultedSlides = computeAlgo(pictures);
+            writeResults(Util.OUTPUT_FOLDER + Util.OUTPUT_FILES[outIdx++], resultedSlides);
         }
 
         System.out.println("Results are ready!");
@@ -43,7 +44,7 @@ public class Main {
      *
      *
      */
-    private static void computeAlgo(Pictures pictures) {
+    private static List<Slide> computeAlgo(Pictures pictures) {
         List<Slide> slides = new ArrayList<>();
 
         List<Pic> horizontals = pictures.horizontal;
@@ -55,7 +56,13 @@ public class Main {
         List<Pic> verticals = pictures.vertical;
 
         createVerticalPics(verticals, slides);
-        System.out.println(slides);
+
+        List<Edge> edges = edgeScoring(slides);
+        ArrayList<Edge> resultedEdges = kruskal(edges, slides);
+        List<Slide> resultedSlides = resultedEdges.stream().map(edge -> edge.getSource()).collect(Collectors.toList());
+        resultedSlides.add(resultedEdges.get(resultedEdges.size() - 1).getDest());
+
+        return resultedSlides;
     }
 
     private static void createVerticalPics(List<Pic> verticals, List<Slide> slides) {
@@ -100,7 +107,7 @@ public class Main {
         return edges;
     }
 
-    private static ArrayList<Edge> kruskal(List<Edge> allEdges, List<Pic> vertices) {
+    private static ArrayList<Edge> kruskal(List<Edge> allEdges, List<Slide> vertices) {
         PriorityQueue<Edge> pq = new PriorityQueue<>(allEdges.size(), Comparator.comparingInt(Edge::getScore).reversed());
 
         pq.addAll(allEdges);
@@ -201,7 +208,7 @@ public class Main {
      *
      * @param outFile file to write to
      */
-    private static void writeResults(String outFile) {
+    private static void writeResults(String outFile, List<Slide> resultedSlides) {
 
         BufferedWriter bw = null;
         FileWriter fw = null;
@@ -210,12 +217,11 @@ public class Main {
 
             fw = new FileWriter(new File(outFile));
             bw = new BufferedWriter(fw);
+            bw.write(resultedSlides.size() + "\n");
 
-            StringBuilder content = new StringBuilder();
-
-            // compute content
-
-            bw.write(content.toString());
+            for (Slide slide: resultedSlides) {
+                bw.write(slide.toString() + "\n");
+            }
 
 
         } catch (IOException e) {
