@@ -7,11 +7,10 @@ public class Util {
 
     public static int PHOTOS_NO;
 
+    public static final String INPUT_FOLDER = "input/";
     public static int crtSlideId = 0;
 
-    public static final String INPUT_FOLDER = "input\\";
-
-    public static final String OUTPUT_FOLDER = "output\\";
+    public static final String OUTPUT_FOLDER = "output/";
 
     public static final String[] OUTPUT_FILES = {
             "a.out",
@@ -22,11 +21,7 @@ public class Util {
     };
 
     public static final String[] INPUT_FILES = {
-            "a_example.in",
-            "b_should_be_easy.in",
-            "c_no_hurry.in",
-            "d_metropolis.in",
-            "e_high_bonus.in"
+            "a_example.txt"
     };
 
 
@@ -34,14 +29,14 @@ public class Util {
         Set<Integer> set = new TreeSet<>();
 
 
-        for (int tag:tags1) {
+        for (int tag : tags1) {
             set.add(tag);
         }
-        for (int tag:tags2) {
+        for (int tag : tags2) {
             set.add(tag);
         }
         int[] array = new int[set.size()];
-        int i =0;
+        int i = 0;
         for (Integer val : set) {
             array[i] = val;
             i++;
