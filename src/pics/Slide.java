@@ -3,6 +3,8 @@ package pics;
 import util.Type;
 import util.Util;
 
+import java.util.Arrays;
+
 public class Slide {
 
     int id;
@@ -28,5 +30,13 @@ public class Slide {
         this.tags = tags;
         this.pic1 = pic1;
         id = Util.crtSlideId++;
+    }
+
+    @Override
+    public String toString() {
+        return "Slide{" +
+                "id=" + id +
+                ", tags=" + Arrays.toString(tags) +
+                '}';
     }
 }

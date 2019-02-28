@@ -53,26 +53,37 @@ public class Main {
         List<Pic> verticals = pictures.vertical;
 
         createVerticalPics(verticals, slides);
-
-        for (Slide slide: slides) {
-            System.out.println(slide.);
-
-        }
-
-
+        System.out.println(slides);
     }
 
     private static void createVerticalPics(List<Pic> verticals, List<Slide> slides) {
 
-        for (int i = 0; i < verticals.size(); i++) {
+        for (int i = 0; i < verticals.size() - 1; i++) {
             Pic vertical1 = verticals.get(i);
-            for (int j = 0; j < i + 1; j++) {
+            Slide bestSlide = null;
+            Pic bestVertical = null;
+            for (int j = i + 1; j < verticals.size(); j++) {
                 Pic vertical2 = verticals.get(j);
                 int[] tags = Util.combineTags(vertical1.getTags(), vertical2.getTags());
-                Slide slide = new Slide(Type.V, tags, vertical1, vertical2);
-                slides.add(slide);
+                Slide candidate = new Slide(Type.V, tags, vertical1, vertical2);
+                int sum = 0;
+                int best = Integer.MIN_VALUE;
+                for (Slide slide: slides) {
+                    int score = Scorer.getScore(slide, candidate);
+                    sum += score;
+                }
+
+                int average = sum / slides.size();
+                if (average >= best) {
+                    bestVertical = vertical2;
+                    best = average;
+                    bestSlide = candidate;
+                }
 
             }
+            slides.add(bestSlide);
+            verticals.remove(bestVertical);
+
         }
 
     }
